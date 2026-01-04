@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linkren Presentation Studio</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: #F3F4F6;
+            overflow-x: hidden;
+        }
+
+        /* HEADER */
+        .header {
+            background: white;
+            padding: 20px 40px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            color: #4ADE80;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            background: #4ADE80;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 15px;
+            margin-left: 12px;
+        }
+
+        .btn:hover {
+            background: #3BC66F;
+        }
+
+        .btn-secondary {
+            background: #E5E7EB;
+            color: #1A1A1A;
+        }
+
+        /* LAYOUT */
+        .main-container {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            height: calc(100vh - 80px);
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            background: white;
+            padding: 24px;
+            overflow-y: auto;
+            border-right: 2px solid #E5E7EB;
+        }
+
+        .section {
+            margin-bottom: 32px;
+        }
+
+        .section-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #6B7280;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 16px;
+        }
+
+        .theme-btn {
+            width: 100%;
+            padding: 14px 16px;
+            margin-bottom: 10px;
+            background: #F3F4F6;
+            border: 2px solid transparent;
+            border-radius: 12px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .theme-btn:hover {
+            background: #D1FAE5;
+        }
+
+        .theme-btn.active {
+            background: #4ADE80;
+            color: white;
+            border-color: #22C55E;
+        }
+
+        .component-item {
+            background: white;
+            border: 2px dashed #D1D5DB;
+            padding: 16px;
+            margin-bottom: 12px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .component-item:hover {
+            border-color: #4ADE80;
+            background: #F0FDF4;
+            transform: scale(1.02);
+        }
+
+        .component-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .component-name {
+            font-weight: 600;
+            font-size: 13px;
+            color: #1A1A1A;
+        }
+
+        /* PREVIEW AREA - GIGANTE */
+        .preview-area {
+            background: linear-gradient(135deg, #0F172A, #1E293B);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            position: relative;
+        }
+
+        .preview-label {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.5);
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        /* SLIDE - GIGANTE E VISÍVEL */
+        .slide {
+            width: 1000px;
+            min-height: 700px;
+            background: white;
+            border-radius: 24px;
+            padding: 60px;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+        }
+
+        /* COMPONENTES */
+        .hero {
+            text-align: center;
+            padding: 40px 0;
+            margin-bottom: 40px;
+        }
+
+        .hero h1 {
+            font-size: 64px;
+            font-weight: 900;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+            line-height: 1.1;
+            color: #1A1A1A;
+        }
+
+        .hero p {
+            font-size: 24px;
+            color: #6B7280;
+            font-weight: 500;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #4ADE80, #22C55E);
+            color: white;
+            padding: 48px 36px;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .card h2 {
+            font-size: 36px;
+            font-weight: 900;
+            margin-bottom: 12px;
+        }
+
+        .card p {
+            font-size: 18px;
+            opacity: 0.95;
+        }
+
+        .card.gray {
+            background: linear-gradient(135deg, #6B7280, #4B5563);
+        }
+
+        .list-section {
+            margin-bottom: 40px;
+        }
+
+        .list-section h2 {
+            font-size: 42px;
+            font-weight: 900;
+            margin-bottom: 28px;
+            color: #1A1A1A;
+        }
+
+        .list-section ol {
+            list-style: none;
+            counter-reset: item;
+        }
+
+        .list-section li {
+            counter-increment: item;
+            position: relative;
+            padding-left: 70px;
+            margin-bottom: 24px;
+            font-size: 18px;
+            line-height: 1.6;
+            color: #374151;
+        }
+
+        .list-section li::before {
+            content: counter(item);
+            position: absolute;
+            left: 0;
+            top: -4px;
+            width: 48px;
+            height: 48px;
+            background: #4ADE80;
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 22px;
+        }
+
+        .quote {
+            background: #1E3A2F;
+            color: white;
+            padding: 56px;
+            border-radius: 24px;
+            text-align: center;
+        }
+
+        .quote blockquote {
+            font-size: 36px;
+            font-weight: 700;
+            line-height: 1.4;
+            margin-bottom: 24px;
+        }
+
+        .quote cite {
+            font-size: 18px;
+            opacity: 0.85;
+        }
+
+        /* EDITÁVEL */
+        [contenteditable="true"] {
+            outline: none;
+            border-radius: 4px;
+            padding: 4px;
+        }
+
+        [contenteditable="true"]:focus {
+            background: rgba(74, 222, 128, 0.1);
+            outline: 2px solid #4ADE80;
+        }
+
+        /* TEMAS */
+        .theme-dark .slide {
+            background: #0A0A0A;
+            color: white;
+        }
+
+        .theme-dark h1, .theme-dark h2, .theme-dark li {
+            color: white;
+        }
+
+        .theme-dark .hero p {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .theme-minimal .slide {
+            background: white;
+        }
+
+        .theme-gradient .slide {
+            background: linear-gradient(135deg, #D1FAE5, white);
+        }
+
+        /* LOADING */
+        .loading {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .loading.active {
+            display: flex;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(74,222,128,0.3);
+            border-top-color: #4ADE80;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+    </div>
+
+    <header class="header">
+        <div class="logo">LINKREN STUDIO</div>
+        <div>
+            <button class="btn btn-secondary" onclick="clearAll()">🗑️ Limpar</button>
+            <button class="btn btn-secondary" onclick="saveProject()">💾 Salvar</button>
+            <button class="btn" onclick="exportPDF()">📄 Exportar PDF</button>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="section">
+                <h3 class="section-title">Temas</h3>
+                <button class="theme-btn active" onclick="changeTheme('default')">🎨 Avenue (Padrão)</button>
+                <button class="theme-btn" onclick="changeTheme('dark')">⚫ Dark Mode</button>
+                <button class="theme-btn" onclick="changeTheme('minimal')">⚪ Minimal</button>
+                <button class="theme-btn" onclick="changeTheme('gradient')">🌈 Gradient</button>
+            </div>
+
+            <div class="section">
+                <h3 class="section-title">Componentes</h3>
+                
+                <div class="component-item" onclick="addHero()">
+                    <div class="component-icon">📰</div>
+                    <div class="component-name">Hero Title</div>
+                </div>
+
+                <div class="component-item" onclick="addCards()">
+                    <div class="component-icon">📊</div>
+                    <div class="component-name">Two Cards</div>
+                </div>
+
+                <div class="component-item" onclick="addList()">
+                    <div class="component-icon">📝</div>
+                    <div class="component-name">Lista Numerada</div>
+                </div>
+
+                <div class="component-item" onclick="addQuote()">
+                    <div class="component-icon">💬</div>
+                    <div class="component-name">Quote Box</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3 class="section-title">Dica</h3>
+                <p style="font-size: 12px; color: #6B7280; line-height: 1.6;">
+                    Clique 2x em qualquer texto para editar diretamente no preview!
+                </p>
+            </div>
+        </aside>
+
+        <!-- PREVIEW GIGANTE -->
+        <main class="preview-area">
+            <div class="preview-label">✨ PREVIEW EM TEMPO REAL — CLIQUE 2X PARA EDITAR</div>
+            
+            <div class="slide theme-default" id="slide">
+                
+                <!-- HERO -->
+                <div class="hero">
+                    <h1 contenteditable="true">APPLE vs MICROSOFT</h1>
+                    <p contenteditable="true">Uma análise comparativa de gigantes da tecnologia</p>
+                </div>
+
+                <!-- CARDS -->
+                <div class="cards">
+                    <div class="card">
+                        <h2 contenteditable="true">APPLE</h2>
+                        <p contenteditable="true">"Menos é mais, e mais é mágico"</p>
+                    </div>
+                    <div class="card gray">
+                        <h2 contenteditable="true">MICROSOFT</h2>
+                        <p contenteditable="true">"Ferramenta do mundo real"</p>
+                    </div>
+                </div>
+
+                <!-- LISTA -->
+                <div class="list-section">
+                    <h2 contenteditable="true">Por que a Apple domina?</h2>
+                    <ol>
+                        <li contenteditable="true">Experiência integrada e fluida — hardware + software = sinfonia perfeita</li>
+                        <li contenteditable="true">Design minimalista, emocional e premium em cada detalhe</li>
+                        <li contenteditable="true">Narrativa forte de marca que vende estilo de vida</li>
+                        <li contenteditable="true">Controle absoluto da experiência do usuário</li>
+                        <li contenteditable="true">Posicionamento aspiracional que cria comunidade global</li>
+                    </ol>
+                </div>
+
+                <!-- QUOTE -->
+                <div class="quote">
+                    <blockquote contenteditable="true">"O futuro pertence a quem entende que tecnologia é sobre pessoas, não sobre máquinas"</blockquote>
+                    <cite contenteditable="true">— Steve Jobs, Apple</cite>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script>
+        let currentTheme = 'default';
+
+        // MUDAR TEMA
+        function changeTheme(theme) {
+            currentTheme = theme;
+            const slide = document.getElementById('slide');
+            slide.className = `slide theme-${theme}`;
+            
+            // Atualizar botões
+            document.querySelectorAll('.theme-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+
+        // ADICIONAR COMPONENTES
+        function addHero() {
+            const slide = document.getElementById('slide');
+            const hero = document.createElement('div');
+            hero.className = 'hero';
+            hero.innerHTML = `
+                <h1 contenteditable="true">Novo Título</h1>
+                <p contenteditable="true">Subtítulo descritivo</p>
+            `;
+            slide.appendChild(hero);
+        }
+
+        function addCards() {
+            const slide = document.getElementById('slide');
+            const cards = document.createElement('div');
+            cards.className = 'cards';
+            cards.innerHTML = `
+                <div class="card">
+                    <h2 contenteditable="true">Card 1</h2>
+                    <p contenteditable="true">Descrição card 1</p>
+                </div>
+                <div class="card gray">
+                    <h2 contenteditable="true">Card 2</h2>
+                    <p contenteditable="true">Descrição card 2</p>
+                </div>
+            `;
+            slide.appendChild(cards);
+        }
+
+        function addList() {
+            const slide = document.getElementById('slide');
+            const list = document.createElement('div');
+            list.className = 'list-section';
+            list.innerHTML = `
+                <h2 contenteditable="true">5 Pontos Principais</h2>
+                <ol>
+                    <li contenteditable="true">Primeiro ponto importante</li>
+                    <li contenteditable="true">Segundo ponto relevante</li>
+                    <li contenteditable="true">Terceiro item da lista</li>
+                    <li contenteditable="true">Quarto elemento</li>
+                    <li contenteditable="true">Quinto ponto final</li>
+                </ol>
+            `;
+            slide.appendChild(list);
+        }
+
+        function addQuote() {
+            const slide = document.getElementById('slide');
+            const quote = document.createElement('div');
+            quote.className = 'quote';
+            quote.innerHTML = `
+                <blockquote contenteditable="true">"Uma citação inspiradora"</blockquote>
+                <cite contenteditable="true">— Autor, 2026</cite>
+            `;
+            slide.appendChild(quote);
+        }
+
+        // LIMPAR
+        function clearAll() {
+            if (confirm('Limpar todo o conteúdo?')) {
+                document.getElementById('slide').innerHTML = '';
+            }
+        }
+
+        // SALVAR
+        function saveProject() {
+            const project = {
+                theme: currentTheme,
+                content: document.getElementById('slide').innerHTML,
+                timestamp: new Date().toISOString()
+            };
+            localStorage.setItem('linkren_presentation', JSON.stringify(project));
+            alert('✅ Projeto salvo!');
+        }
+
+        // CARREGAR
+        window.addEventListener('load', () => {
+            const saved = localStorage.getItem('linkren_presentation');
+            if (saved) {
+                const project = JSON.parse(saved);
+                document.getElementById('slide').innerHTML = project.content;
+                changeTheme(project.theme);
+            }
+        });
+
+        // EXPORTAR PDF
+        async function exportPDF() {
+            const loading = document.getElementById('loading');
+            loading.classList.add('active');
+
+            try {
+                const slide = document.getElementById('slide');
+                
+                const canvas = await html2canvas(slide, {
+                    scale: 2,
+                    backgroundColor: '#ffffff',
+                    width: 1000,
+                    height: 700
+                });
+
+                const { jsPDF } = window.jspdf;
+                const pdf = new jsPDF({
+                    orientation: 'landscape',
+                    unit: 'px',
+                    format: [1000, 700]
+                });
+
+                const imgData = canvas.toDataURL('image/png');
+                pdf.addImage(imgData, 'PNG', 0, 0, 1000, 700);
+                pdf.save('linkren-presentation.pdf');
+
+                alert('✅ PDF exportado!');
+            } catch (error) {
+                console.error(error);
+                alert('❌ Erro ao exportar');
+            } finally {
+                loading.classList.remove('active');
+            }
+        }
+
+        // CTRL+S
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 's') {
+                e.preventDefault();
+                saveProject();
+            }
+        });
+    </script>
+</body>
+</html>
