@@ -298,11 +298,21 @@
     .preview-area {
       background: linear-gradient(135deg, #0F172A, #1E293B);
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: center;
-      padding: 40px;
+      padding: 80px 40px 40px 40px;
       position: relative;
       overflow: auto;
+      min-height: 100%;
+    }
+    .preview-area::-webkit-scrollbar { width: 12px; }
+    .preview-area::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); }
+    .preview-area::-webkit-scrollbar-thumb { 
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+    }
+    .preview-area::-webkit-scrollbar-thumb:hover { 
+      background: rgba(255, 255, 255, 0.3);
     }
     
     .preview-controls {
@@ -343,13 +353,15 @@
     .slide {
       width: 1000px;
       min-height: 700px;
+      max-height: none;
       background: white;
       border-radius: 16px;
       padding: 56px;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
       position: relative;
-      transform-origin: center;
+      transform-origin: center top;
       transition: transform 0.3s ease;
+      overflow: visible;
     }
 
     /* BLOCK WRAPPER */
@@ -1142,7 +1154,8 @@
       project.blocks.push(createBlock("imagetext", {
         title: "Título da Seção",
         text: "Descrição detalhada sobre o conteúdo apresentado nesta seção.",
-        imagePosition: "left"
+        imagePosition: "left",
+        image: null
       }));
       saveProject();
       renderSlide();
@@ -1587,6 +1600,10 @@
       if (t === "imagetext") {
         return `
           <div class="field">
+            <label>Imagem</label>
+            ${renderImageUploadField(block.data.image, 'image')}
+          </div>
+          <div class="field">
             <label>Título</label>
             <input class="input" value="${escapeAttr(block.data.title || "")}"
               oninput="updateSelectedData('title', this.value)" />
@@ -1602,6 +1619,20 @@
               <option value="left" ${block.data.imagePosition === "left" ? "selected" : ""}>Esquerda</option>
               <option value="right" ${block.data.imagePosition === "right" ? "selected" : ""}>Direita</option>
             </select>
+          </div>
+        `;
+      }
+
+      if (t === "image") {
+        return `
+          <div class="field">
+            <label>Imagem</label>
+            ${renderImageUploadField(block.data.image, 'image')}
+          </div>
+          <div class="field">
+            <label>Texto Alternativo (Alt)</label>
+            <input class="input" value="${escapeAttr(block.data.alt || "")}"
+              oninput="updateSelectedData('alt', this.value)" />
           </div>
         `;
       }
@@ -1752,10 +1783,101 @@
         timeline: "Timeline",
         stats: "Stats",
         imagetext: "Imagem + Texto",
+        image: "Imagem",
         cta: "CTA",
         table: "Tabela"
       };
       return labels[type] || "Bloco";
+    }
+
+    // =========================
+    // IMAGE UPLOAD FUNCTIONS
+    // =========================
+    function renderImageUploadField(currentImage, fieldName) {
+      const uploadId = 'upload-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+      
+      if (currentImage) {
+        return `
+          <div class="image-upload-area has-image" id="upload-area-${uploadId}">
+            <img src="${currentImage}" class="image-preview" />
+          </div>
+          <div class="image-actions">
+            <button class="btn-small" type="button" id="btn-change-${uploadId}">
+              Trocar Imagem
+            </button>
+            <button class="btn-small danger" type="button" id="btn-remove-${uploadId}">
+              Remover
+            </button>
+          </div>
+          <input type="file" id="${uploadId}" accept="image/*" style="display:none" />
+          <script>
+            (function() {
+              const input = document.getElementById('${uploadId}');
+              const area = document.getElementById('upload-area-${uploadId}');
+              const btnChange = document.getElementById('btn-change-${uploadId}');
+              const btnRemove = document.getElementById('btn-remove-${uploadId}');
+              
+              if (area) area.onclick = () => input.click();
+              if (btnChange) btnChange.onclick = (e) => { e.stopPropagation(); input.click(); };
+              if (btnRemove) btnRemove.onclick = (e) => { e.stopPropagation(); removeImage('${fieldName}'); };
+              if (input) input.onchange = (e) => handleImageUpload(e.target, '${fieldName}');
+            })();
+          </script>
+        `;
+      } else {
+        return `
+          <div class="image-upload-area" id="upload-area-${uploadId}">
+            <div class="upload-icon">📷</div>
+            <div class="upload-placeholder">Clique para adicionar imagem</div>
+          </div>
+          <input type="file" id="${uploadId}" accept="image/*" style="display:none" />
+          <script>
+            (function() {
+              const input = document.getElementById('${uploadId}');
+              const area = document.getElementById('upload-area-${uploadId}');
+              
+              if (area) area.onclick = () => input.click();
+              if (input) input.onchange = (e) => handleImageUpload(e.target, '${fieldName}');
+            })();
+          </script>
+        `;
+      }
+    }
+
+    function handleImageUpload(input, fieldName) {
+      const file = input.files[0];
+      if (!file) return;
+
+      if (!file.type.startsWith('image/')) {
+        showToast("❌ Arquivo inválido. Use imagens (JPG, PNG, etc)");
+        return;
+      }
+
+      showToast("⏳ Comprimindo imagem...");
+
+      compressImage(file, (compressedBase64) => {
+        saveHistory();
+        const b = getSelectedBlock();
+        if (!b) return;
+
+        b.data[fieldName] = compressedBase64;
+        saveProject();
+        renderSlide();
+        renderPropertiesPanel();
+        showToast("✅ Imagem adicionada!");
+      });
+    }
+
+    function removeImage(fieldName) {
+      saveHistory();
+      const b = getSelectedBlock();
+      if (!b) return;
+
+      b.data[fieldName] = null;
+      saveProject();
+      renderSlide();
+      renderPropertiesPanel();
+      showToast("🗑️ Imagem removida");
     }
 
     // =========================
