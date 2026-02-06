@@ -1796,7 +1796,26 @@
     function renderImageUploadField(currentImage, fieldName) {
       const uploadId = 'upload-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
       
+      // Store handlers in global scope for this upload
+      window['handler_' + uploadId] = {
+        click: () => document.getElementById(uploadId).click(),
+        change: (e) => handleImageUpload(e.target, fieldName),
+        remove: () => removeImage(fieldName)
+      };
+      
       if (currentImage) {
+        setTimeout(() => {
+          const input = document.getElementById(uploadId);
+          const area = document.getElementById('upload-area-' + uploadId);
+          const btnChange = document.getElementById('btn-change-' + uploadId);
+          const btnRemove = document.getElementById('btn-remove-' + uploadId);
+          
+          if (input) input.onchange = window['handler_' + uploadId].change;
+          if (area) area.onclick = window['handler_' + uploadId].click;
+          if (btnChange) btnChange.onclick = (e) => { e.stopPropagation(); window['handler_' + uploadId].click(); };
+          if (btnRemove) btnRemove.onclick = (e) => { e.stopPropagation(); window['handler_' + uploadId].remove(); };
+        }, 10);
+        
         return `
           <div class="image-upload-area has-image" id="upload-area-${uploadId}">
             <img src="${currentImage}" class="image-preview" />
@@ -1810,36 +1829,22 @@
             </button>
           </div>
           <input type="file" id="${uploadId}" accept="image/*" style="display:none" />
-          <script>
-            (function() {
-              const input = document.getElementById('${uploadId}');
-              const area = document.getElementById('upload-area-${uploadId}');
-              const btnChange = document.getElementById('btn-change-${uploadId}');
-              const btnRemove = document.getElementById('btn-remove-${uploadId}');
-              
-              if (area) area.onclick = () => input.click();
-              if (btnChange) btnChange.onclick = (e) => { e.stopPropagation(); input.click(); };
-              if (btnRemove) btnRemove.onclick = (e) => { e.stopPropagation(); removeImage('${fieldName}'); };
-              if (input) input.onchange = (e) => handleImageUpload(e.target, '${fieldName}');
-            })();
-          </script>
         `;
       } else {
+        setTimeout(() => {
+          const input = document.getElementById(uploadId);
+          const area = document.getElementById('upload-area-' + uploadId);
+          
+          if (input) input.onchange = window['handler_' + uploadId].change;
+          if (area) area.onclick = window['handler_' + uploadId].click;
+        }, 10);
+        
         return `
           <div class="image-upload-area" id="upload-area-${uploadId}">
             <div class="upload-icon">📷</div>
             <div class="upload-placeholder">Clique para adicionar imagem</div>
           </div>
           <input type="file" id="${uploadId}" accept="image/*" style="display:none" />
-          <script>
-            (function() {
-              const input = document.getElementById('${uploadId}');
-              const area = document.getElementById('upload-area-${uploadId}');
-              
-              if (area) area.onclick = () => input.click();
-              if (input) input.onchange = (e) => handleImageUpload(e.target, '${fieldName}');
-            })();
-          </script>
         `;
       }
     }
