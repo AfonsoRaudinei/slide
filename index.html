@@ -610,13 +610,47 @@
       position: relative;
       border-radius: 12px;
       transition: all 0.2s ease;
-      cursor: pointer;
+      cursor: grab;
       margin-bottom: 20px;
     }
-    .block:hover { transform: translateY(-1px); }
+    .block:hover { 
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
     .block.selected {
       outline: 2px solid #4ADE80;
       box-shadow: 0 0 0 6px rgba(74, 222, 128, 0.12);
+    }
+    .block.dragging {
+      opacity: 0.5;
+      cursor: grabbing;
+    }
+    .block.drag-over {
+      border-top: 3px solid #4ADE80;
+    }
+
+    /* Drag handle */
+    .drag-handle {
+      position: absolute;
+      left: -35px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 24px;
+      height: 40px;
+      background: rgba(74, 222, 128, 0.1);
+      border-radius: 6px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      cursor: grab;
+      color: #4ADE80;
+      font-size: 16px;
+    }
+    .block:hover .drag-handle {
+      display: flex;
+    }
+    .drag-handle:active {
+      cursor: grabbing;
     }
 
     /* COMPONENTS */
@@ -854,6 +888,91 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
 
+    /* CONCLUSÃO */
+    .conclusion {
+      background: linear-gradient(135deg, #3B82F6, #2563EB);
+      color: white;
+      padding: 48px;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(59, 130, 246, 0.3);
+    }
+    .conclusion h2 {
+      font-size: 36px;
+      font-weight: 900;
+      margin-bottom: 20px;
+      letter-spacing: -1px;
+    }
+    .conclusion p {
+      font-size: 18px;
+      line-height: 1.7;
+      opacity: 0.95;
+      font-weight: 500;
+    }
+
+    /* JUSTIFICATIVA */
+    .justification {
+      background: white;
+      border-left: 6px solid #F59E0B;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
+    .justification h2 {
+      font-size: 32px;
+      font-weight: 900;
+      margin-bottom: 20px;
+      color: #F59E0B;
+      letter-spacing: -0.8px;
+    }
+    .justification p {
+      font-size: 17px;
+      color: #374151;
+      line-height: 1.8;
+      font-weight: 500;
+    }
+
+    /* HIGHLIGHT BOX */
+    .highlight {
+      background: linear-gradient(135deg, #EC4899, #DB2777);
+      color: white;
+      padding: 44px;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(236, 72, 153, 0.3);
+    }
+    .highlight h2 {
+      font-size: 34px;
+      font-weight: 900;
+      margin-bottom: 16px;
+      letter-spacing: -0.8px;
+    }
+    .highlight p {
+      font-size: 17px;
+      line-height: 1.7;
+      opacity: 0.95;
+      font-weight: 600;
+    }
+
+    /* INFO BOX */
+    .info-box {
+      background: linear-gradient(135deg, #8B5CF6, #7C3AED);
+      color: white;
+      padding: 44px;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(139, 92, 246, 0.3);
+    }
+    .info-box h2 {
+      font-size: 34px;
+      font-weight: 900;
+      margin-bottom: 16px;
+      letter-spacing: -0.8px;
+    }
+    .info-box p {
+      font-size: 17px;
+      line-height: 1.7;
+      opacity: 0.95;
+      font-weight: 600;
+    }
+
     /* Table */
     .table-wrapper {
       overflow-x: auto;
@@ -895,16 +1014,16 @@
     .theme-dark .slide { background: #0A0A0A; color: white; }
     .theme-dark .hero h1, .theme-dark .list-section h2, 
     .theme-dark .timeline h2, .theme-dark .table-wrapper h2,
-    .theme-dark .image-text-content h2 { color: white; }
+    .theme-dark .image-text-content h2, .theme-dark .justification h2 { color: white; }
     .theme-dark .hero p, .theme-dark .list-section li,
-    .theme-dark .timeline-content h3, .theme-dark .image-text-content p { color: rgba(255,255,255,0.75); }
+    .theme-dark .timeline-content h3, .theme-dark .image-text-content p,
+    .theme-dark .justification p { color: rgba(255,255,255,0.75); }
     .theme-dark .simple-table th { background: rgba(74, 222, 128, 0.15); color: white; }
     .theme-dark .simple-table td { color: rgba(255,255,255,0.8); border-bottom-color: rgba(255,255,255,0.1); }
-
-    .theme-minimal .slide { background: white; }
-    .theme-gradient .slide { background: linear-gradient(135deg, #D1FAE5, white); }
-    .theme-corporate .slide { background: linear-gradient(180deg, #EFF6FF, white); }
-    .theme-corporate .card { background: linear-gradient(135deg, #3B82F6, #2563EB); }
+    .theme-dark .justification { 
+      background: rgba(245, 158, 11, 0.1); 
+      border-left-color: #F59E0B;
+    }
 
     /* EMPTY STATE */
     .empty {
@@ -1068,15 +1187,6 @@
         <button class="theme-btn" data-theme="dark" onclick="changeTheme('dark', this)">
           <span>🌙</span> Dark Mode
         </button>
-        <button class="theme-btn" data-theme="minimal" onclick="changeTheme('minimal', this)">
-          <span>⚪</span> Minimal
-        </button>
-        <button class="theme-btn" data-theme="gradient" onclick="changeTheme('gradient', this)">
-          <span>🌈</span> Gradient
-        </button>
-        <button class="theme-btn" data-theme="corporate" onclick="changeTheme('corporate', this)">
-          <span>💼</span> Corporate
-        </button>
       </div>
 
       <div class="section">
@@ -1127,6 +1237,26 @@
         <div class="component-item" onclick="addTable()">
           <div class="component-icon">📋</div>
           <div class="component-name">Tabela</div>
+        </div>
+
+        <div class="component-item" onclick="addConclusion()">
+          <div class="component-icon">🎯</div>
+          <div class="component-name">Conclusão</div>
+        </div>
+
+        <div class="component-item" onclick="addJustification()">
+          <div class="component-icon">📌</div>
+          <div class="component-name">Justificativa</div>
+        </div>
+
+        <div class="component-item" onclick="addHighlight()">
+          <div class="component-icon">⭐</div>
+          <div class="component-name">Destaque Rosa</div>
+        </div>
+
+        <div class="component-item" onclick="addInfoBox()">
+          <div class="component-icon">💜</div>
+          <div class="component-name">Info Roxo</div>
         </div>
       </div>
 
@@ -1437,6 +1567,50 @@
       showToast("✅ Tabela adicionada");
     }
 
+    function addConclusion() {
+      saveHistory();
+      project.blocks.push(createBlock("conclusion", {
+        title: "Conclusão",
+        text: "Resumo dos principais pontos apresentados e considerações finais sobre o tema abordado."
+      }));
+      saveProject();
+      renderSlide();
+      showToast("✅ Conclusão adicionada");
+    }
+
+    function addJustification() {
+      saveHistory();
+      project.blocks.push(createBlock("justification", {
+        title: "Justificativa",
+        text: "Apresentação dos motivos e fundamentos que sustentam a proposta ou decisão apresentada."
+      }));
+      saveProject();
+      renderSlide();
+      showToast("✅ Justificativa adicionada");
+    }
+
+    function addHighlight() {
+      saveHistory();
+      project.blocks.push(createBlock("highlight", {
+        title: "Ponto de Destaque",
+        text: "Informação importante que merece atenção especial e destaque visual."
+      }));
+      saveProject();
+      renderSlide();
+      showToast("✅ Destaque adicionado");
+    }
+
+    function addInfoBox() {
+      saveHistory();
+      project.blocks.push(createBlock("infobox", {
+        title: "Informação Adicional",
+        text: "Contexto complementar ou dados relevantes que enriquecem a apresentação."
+      }));
+      saveProject();
+      renderSlide();
+      showToast("✅ Info Box adicionado");
+    }
+
     // =========================
     // BLOCK OPS
     // =========================
@@ -1518,7 +1692,24 @@
     function renderBlock(block) {
       const wrapper = document.createElement("div");
       wrapper.className = "block";
+      wrapper.setAttribute("draggable", "true");
+      wrapper.dataset.blockId = block.id;
+      
       if (block.id === project.selectedBlockId) wrapper.classList.add("selected");
+
+      // Drag handle
+      const handle = document.createElement("div");
+      handle.className = "drag-handle";
+      handle.innerHTML = "⋮⋮";
+      wrapper.appendChild(handle);
+
+      // Drag events
+      wrapper.addEventListener("dragstart", handleDragStart);
+      wrapper.addEventListener("dragend", handleDragEnd);
+      wrapper.addEventListener("dragover", handleDragOver);
+      wrapper.addEventListener("drop", handleDrop);
+      wrapper.addEventListener("dragenter", handleDragEnter);
+      wrapper.addEventListener("dragleave", handleDragLeave);
 
       wrapper.addEventListener("click", (e) => {
         e.stopPropagation();
@@ -1536,6 +1727,10 @@
         case "imagetext": content = renderImageText(block.data); break;
         case "cta": content = renderCTA(block.data); break;
         case "table": content = renderTable(block.data); break;
+        case "conclusion": content = renderConclusion(block.data); break;
+        case "justification": content = renderJustification(block.data); break;
+        case "highlight": content = renderHighlight(block.data); break;
+        case "infobox": content = renderInfoBox(block.data); break;
         default:
           content = document.createElement("div");
           content.textContent = "Bloco desconhecido";
@@ -1543,6 +1738,74 @@
 
       wrapper.appendChild(content);
       return wrapper;
+    }
+
+    // =========================
+    // DRAG AND DROP
+    // =========================
+    let draggedBlock = null;
+
+    function handleDragStart(e) {
+      draggedBlock = this;
+      this.classList.add("dragging");
+      e.dataTransfer.effectAllowed = "move";
+      e.dataTransfer.setData("text/html", this.innerHTML);
+    }
+
+    function handleDragEnd(e) {
+      this.classList.remove("dragging");
+      document.querySelectorAll(".block").forEach(block => {
+        block.classList.remove("drag-over");
+      });
+    }
+
+    function handleDragOver(e) {
+      if (e.preventDefault) {
+        e.preventDefault();
+      }
+      e.dataTransfer.dropEffect = "move";
+      return false;
+    }
+
+    function handleDragEnter(e) {
+      if (this !== draggedBlock) {
+        this.classList.add("drag-over");
+      }
+    }
+
+    function handleDragLeave(e) {
+      this.classList.remove("drag-over");
+    }
+
+    function handleDrop(e) {
+      if (e.stopPropagation) {
+        e.stopPropagation();
+      }
+
+      if (draggedBlock !== this) {
+        saveHistory();
+        
+        const draggedId = draggedBlock.dataset.blockId;
+        const targetId = this.dataset.blockId;
+        
+        const draggedIdx = project.blocks.findIndex(b => b.id === draggedId);
+        const targetIdx = project.blocks.findIndex(b => b.id === targetId);
+        
+        if (draggedIdx !== -1 && targetIdx !== -1) {
+          const draggedBlockData = project.blocks[draggedIdx];
+          project.blocks.splice(draggedIdx, 1);
+          
+          const newTargetIdx = project.blocks.findIndex(b => b.id === targetId);
+          project.blocks.splice(newTargetIdx, 0, draggedBlockData);
+          
+          saveProject();
+          renderSlide();
+          renderPropertiesPanel();
+          showToast("✅ Bloco reposicionado");
+        }
+      }
+
+      return false;
     }
 
     function renderHero(data) {
@@ -1688,6 +1951,46 @@
       
       html += `</tbody></table>`;
       div.innerHTML = html;
+      return div;
+    }
+
+    function renderConclusion(data) {
+      const div = document.createElement("div");
+      div.className = "conclusion";
+      div.innerHTML = `
+        <h2>${escapeHtml(data.title || "")}</h2>
+        <p>${escapeHtml(data.text || "")}</p>
+      `;
+      return div;
+    }
+
+    function renderJustification(data) {
+      const div = document.createElement("div");
+      div.className = "justification";
+      div.innerHTML = `
+        <h2>${escapeHtml(data.title || "")}</h2>
+        <p>${escapeHtml(data.text || "")}</p>
+      `;
+      return div;
+    }
+
+    function renderHighlight(data) {
+      const div = document.createElement("div");
+      div.className = "highlight";
+      div.innerHTML = `
+        <h2>${escapeHtml(data.title || "")}</h2>
+        <p>${escapeHtml(data.text || "")}</p>
+      `;
+      return div;
+    }
+
+    function renderInfoBox(data) {
+      const div = document.createElement("div");
+      div.className = "info-box";
+      div.innerHTML = `
+        <h2>${escapeHtml(data.title || "")}</h2>
+        <p>${escapeHtml(data.text || "")}</p>
+      `;
       return div;
     }
 
@@ -1988,6 +2291,21 @@
         `;
       }
 
+      if (t === "conclusion" || t === "justification" || t === "highlight" || t === "infobox") {
+        return `
+          <div class="field">
+            <label>Título</label>
+            <input class="input" value="${escapeAttr(block.data.title || "")}"
+              oninput="updateSelectedData('title', this.value)" />
+          </div>
+          <div class="field">
+            <label>Texto</label>
+            <textarea class="textarea" style="min-height: 120px;"
+              oninput="updateSelectedData('text', this.value)">${escapeHtml(block.data.text || "")}</textarea>
+          </div>
+        `;
+      }
+
       return `<div class="muted">Sem propriedades para este bloco.</div>`;
     }
 
@@ -2275,7 +2593,11 @@
         stats: "Stats",
         imagetext: "Imagem + Texto",
         cta: "CTA",
-        table: "Tabela"
+        table: "Tabela",
+        conclusion: "Conclusão",
+        justification: "Justificativa",
+        highlight: "Destaque",
+        infobox: "Info Box"
       };
       return labels[type] || "Bloco";
     }
