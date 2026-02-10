@@ -294,6 +294,247 @@
       line-height: 1.6;
     }
 
+    /* IMAGE UPLOAD */
+    .image-upload-area {
+      width: 100%;
+      min-height: 180px;
+      border: 2px dashed rgba(0, 0, 0, 0.15);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: rgba(243, 244, 246, 0.5);
+      margin-bottom: 8px;
+    }
+    .image-upload-area:hover {
+      border-color: #4ADE80;
+      background: rgba(74, 222, 128, 0.05);
+    }
+    .image-upload-area.has-image {
+      border-style: solid;
+      border-color: rgba(0, 0, 0, 0.1);
+      padding: 0;
+      min-height: 200px;
+    }
+    .upload-icon {
+      font-size: 48px;
+      margin-bottom: 12px;
+      opacity: 0.5;
+    }
+    .upload-placeholder {
+      font-size: 13px;
+      font-weight: 600;
+      color: #6B7280;
+    }
+    .image-preview {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+      min-height: 200px;
+    }
+    .image-actions {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .btn-small {
+      padding: 8px 14px;
+      background: rgba(17, 24, 39, 0.06);
+      color: #111827;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-small:hover {
+      background: rgba(74, 222, 128, 0.1);
+      border-color: #4ADE80;
+    }
+    .btn-small.danger:hover {
+      background: rgba(239, 68, 68, 0.1);
+      border-color: #EF4444;
+      color: #EF4444;
+    }
+
+    /* TIMELINE MANAGER */
+    .timeline-manager {
+      margin-top: 12px;
+    }
+    .timeline-item-editor {
+      background: rgba(243, 244, 246, 0.8);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 10px;
+      position: relative;
+    }
+    .timeline-item-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    }
+    .timeline-item-number {
+      font-size: 11px;
+      font-weight: 800;
+      color: #4ADE80;
+      background: rgba(74, 222, 128, 0.15);
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+    .timeline-item-actions {
+      display: flex;
+      gap: 4px;
+    }
+    .mini-btn {
+      width: 28px;
+      height: 28px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      background: white;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 700;
+      color: #6B7280;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .mini-btn:hover {
+      background: #4ADE80;
+      color: white;
+      border-color: #4ADE80;
+    }
+    .mini-btn.danger:hover {
+      background: #EF4444;
+      border-color: #EF4444;
+    }
+    .add-timeline-item-btn {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(135deg, #4ADE80, #22C55E);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-top: 8px;
+    }
+    .add-timeline-item-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(74, 222, 128, 0.35);
+    }
+
+    /* STATS MANAGER */
+    .stats-manager {
+      margin-top: 12px;
+    }
+    .stat-item-editor {
+      background: rgba(243, 244, 246, 0.8);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 10px;
+    }
+    .stat-item-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    }
+    .stat-item-number {
+      font-size: 11px;
+      font-weight: 800;
+      color: #4ADE80;
+      background: rgba(74, 222, 128, 0.15);
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+    .stat-fields {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    /* TABLE MANAGER */
+    .table-manager {
+      margin-top: 12px;
+    }
+    .table-header-editor {
+      background: rgba(243, 244, 246, 0.8);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 10px;
+    }
+    .table-section-title {
+      font-size: 11px;
+      font-weight: 800;
+      color: #6B7280;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .table-headers-grid {
+      display: grid;
+      gap: 8px;
+    }
+    .table-header-item {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+    .table-header-item .input {
+      flex: 1;
+    }
+    .table-row-editor {
+      background: rgba(243, 244, 246, 0.8);
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 10px;
+    }
+    .table-row-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+    }
+    .table-row-number {
+      font-size: 11px;
+      font-weight: 800;
+      color: #4ADE80;
+      background: rgba(74, 222, 128, 0.15);
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+    .table-cells-grid {
+      display: grid;
+      gap: 8px;
+    }
+
     /* PREVIEW AREA */
     .preview-area {
       background: linear-gradient(135deg, #0F172A, #1E293B);
@@ -476,7 +717,7 @@
       font-weight: 700;
     }
 
-    /* NEW: Timeline */
+    /* Timeline */
     .timeline {
       padding: 20px 0;
     }
@@ -514,7 +755,7 @@
       line-height: 1.6;
     }
 
-    /* NEW: Stats Grid */
+    /* Stats Grid */
     .stats-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -542,7 +783,7 @@
       letter-spacing: 0.5px;
     }
 
-    /* NEW: Image + Text */
+    /* Image + Text */
     .image-text {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -559,6 +800,12 @@
       justify-content: center;
       font-size: 60px;
       color: #9CA3AF;
+      overflow: hidden;
+    }
+    .image-text-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
     .image-text-content h2 {
       font-size: 32px;
@@ -574,7 +821,7 @@
       font-weight: 500;
     }
 
-    /* NEW: CTA */
+    /* CTA */
     .cta {
       background: linear-gradient(135deg, #4ADE80, #22C55E);
       color: white;
@@ -607,7 +854,7 @@
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
 
-    /* NEW: Table */
+    /* Table */
     .table-wrapper {
       overflow-x: auto;
     }
@@ -1392,7 +1639,10 @@
       const div = document.createElement("div");
       div.className = "image-text";
       
-      const imgHTML = `<div class="image-text-img">🖼️</div>`;
+      const imgHTML = data.image 
+        ? `<div class="image-text-img"><img src="${data.image}" alt="Imagem" /></div>`
+        : `<div class="image-text-img">🖼️</div>`;
+      
       const textHTML = `
         <div class="image-text-content">
           <h2>${escapeHtml(data.title || "")}</h2>
@@ -1572,13 +1822,30 @@
             <input class="input" value="${escapeAttr(block.data.title || "")}"
               oninput="updateSelectedData('title', this.value)" />
           </div>
-          <div class="field">
-            <label>Itens (JSON Array)</label>
-            <textarea class="textarea" style="min-height: 120px;"
-              oninput="updateTimelineItems(this.value)">${escapeHtml(JSON.stringify(items, null, 2))}</textarea>
-          </div>
-          <div class="muted" style="margin-top: 8px;">
-            Formato: [{"title":"Fase 1","text":"Descrição"}]
+          <div class="timeline-manager">
+            ${items.map((item, idx) => `
+              <div class="timeline-item-editor">
+                <div class="timeline-item-header">
+                  <div class="timeline-item-number">Fase ${idx + 1}</div>
+                  <div class="timeline-item-actions">
+                    ${idx > 0 ? `<button class="mini-btn" onclick="moveTimelineItem(${idx}, -1)" title="Mover para cima">↑</button>` : ''}
+                    ${idx < items.length - 1 ? `<button class="mini-btn" onclick="moveTimelineItem(${idx}, 1)" title="Mover para baixo">↓</button>` : ''}
+                    <button class="mini-btn danger" onclick="removeTimelineItem(${idx})" title="Remover">✕</button>
+                  </div>
+                </div>
+                <div class="field">
+                  <input class="input" placeholder="Título da fase" value="${escapeAttr(item.title || "")}"
+                    oninput="updateTimelineItemField(${idx}, 'title', this.value)" />
+                </div>
+                <div class="field">
+                  <textarea class="textarea" placeholder="Descrição da fase"
+                    oninput="updateTimelineItemField(${idx}, 'text', this.value)">${escapeHtml(item.text || "")}</textarea>
+                </div>
+              </div>
+            `).join('')}
+            <button class="add-timeline-item-btn" onclick="addTimelineItem()">
+              <span>+</span> Adicionar Fase
+            </button>
           </div>
         `;
       }
@@ -1586,13 +1853,32 @@
       if (t === "stats") {
         const stats = Array.isArray(block.data.stats) ? block.data.stats : [];
         return `
-          <div class="field">
-            <label>Estatísticas (JSON Array)</label>
-            <textarea class="textarea" style="min-height: 140px;"
-              oninput="updateStatsData(this.value)">${escapeHtml(JSON.stringify(stats, null, 2))}</textarea>
-          </div>
-          <div class="muted" style="margin-top: 8px;">
-            Formato: [{"value":"10K+","label":"Clientes"}]
+          <div class="stats-manager">
+            ${stats.map((stat, idx) => `
+              <div class="stat-item-editor">
+                <div class="stat-item-header">
+                  <div class="stat-item-number">Estatística ${idx + 1}</div>
+                  <div class="timeline-item-actions">
+                    ${idx > 0 ? `<button class="mini-btn" onclick="moveStatItem(${idx}, -1)" title="Mover para cima">↑</button>` : ''}
+                    ${idx < stats.length - 1 ? `<button class="mini-btn" onclick="moveStatItem(${idx}, 1)" title="Mover para baixo">↓</button>` : ''}
+                    <button class="mini-btn danger" onclick="removeStatItem(${idx})" title="Remover">✕</button>
+                  </div>
+                </div>
+                <div class="stat-fields">
+                  <div class="field">
+                    <input class="input" placeholder="Valor (ex: 10K+)" value="${escapeAttr(stat.value || "")}"
+                      oninput="updateStatItemField(${idx}, 'value', this.value)" />
+                  </div>
+                  <div class="field">
+                    <input class="input" placeholder="Label (ex: Clientes)" value="${escapeAttr(stat.label || "")}"
+                      oninput="updateStatItemField(${idx}, 'label', this.value)" />
+                  </div>
+                </div>
+              </div>
+            `).join('')}
+            <button class="add-timeline-item-btn" onclick="addStatItem()">
+              <span>+</span> Adicionar Estatística
+            </button>
           </div>
         `;
       }
@@ -1619,20 +1905,6 @@
               <option value="left" ${block.data.imagePosition === "left" ? "selected" : ""}>Esquerda</option>
               <option value="right" ${block.data.imagePosition === "right" ? "selected" : ""}>Direita</option>
             </select>
-          </div>
-        `;
-      }
-
-      if (t === "image") {
-        return `
-          <div class="field">
-            <label>Imagem</label>
-            ${renderImageUploadField(block.data.image, 'image')}
-          </div>
-          <div class="field">
-            <label>Texto Alternativo (Alt)</label>
-            <input class="input" value="${escapeAttr(block.data.alt || "")}"
-              oninput="updateSelectedData('alt', this.value)" />
           </div>
         `;
       }
@@ -1666,18 +1938,52 @@
             <input class="input" value="${escapeAttr(block.data.title || "")}"
               oninput="updateSelectedData('title', this.value)" />
           </div>
-          <div class="field">
-            <label>Cabeçalhos (JSON Array)</label>
-            <textarea class="textarea"
-              oninput="updateTableHeaders(this.value)">${escapeHtml(JSON.stringify(headers))}</textarea>
-          </div>
-          <div class="field">
-            <label>Linhas (JSON Array de Arrays)</label>
-            <textarea class="textarea" style="min-height: 120px;"
-              oninput="updateTableRows(this.value)">${escapeHtml(JSON.stringify(rows, null, 2))}</textarea>
-          </div>
-          <div class="muted" style="margin-top: 8px;">
-            Formato: [["A1","B1","C1"], ["A2","B2","C2"]]
+          <div class="table-manager">
+            <div class="table-header-editor">
+              <div class="table-section-title">
+                <span>📋 Cabeçalhos</span>
+                <button class="mini-btn" onclick="addTableHeader()" title="Adicionar coluna">+</button>
+              </div>
+              <div class="table-headers-grid">
+                ${headers.map((header, idx) => `
+                  <div class="table-header-item">
+                    <input class="input" placeholder="Nome da coluna ${idx + 1}" value="${escapeAttr(header || "")}"
+                      oninput="updateTableHeader(${idx}, this.value)" />
+                    <button class="mini-btn danger" onclick="removeTableHeader(${idx})" title="Remover coluna">✕</button>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+            
+            <div class="table-section-title">
+              <span>📊 Linhas de Dados</span>
+            </div>
+            
+            ${rows.map((row, rowIdx) => `
+              <div class="table-row-editor">
+                <div class="table-row-header">
+                  <div class="table-row-number">Linha ${rowIdx + 1}</div>
+                  <div class="timeline-item-actions">
+                    ${rowIdx > 0 ? `<button class="mini-btn" onclick="moveTableRow(${rowIdx}, -1)" title="Mover para cima">↑</button>` : ''}
+                    ${rowIdx < rows.length - 1 ? `<button class="mini-btn" onclick="moveTableRow(${rowIdx}, 1)" title="Mover para baixo">↓</button>` : ''}
+                    <button class="mini-btn danger" onclick="removeTableRow(${rowIdx})" title="Remover linha">✕</button>
+                  </div>
+                </div>
+                <div class="table-cells-grid">
+                  ${(Array.isArray(row) ? row : []).map((cell, cellIdx) => `
+                    <div class="field">
+                      <label>${headers[cellIdx] || `Coluna ${cellIdx + 1}`}</label>
+                      <input class="input" value="${escapeAttr(cell || "")}"
+                        oninput="updateTableCell(${rowIdx}, ${cellIdx}, this.value)" />
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            `).join('')}
+            
+            <button class="add-timeline-item-btn" onclick="addTableRow()">
+              <span>+</span> Adicionar Linha
+            </button>
           </div>
         `;
       }
@@ -1685,8 +1991,255 @@
       return `<div class="muted">Sem propriedades para este bloco.</div>`;
     }
 
-    function updateSelectedData(field, value) {
+    // =========================
+    // STATS MANAGER FUNCTIONS
+    // =========================
+    function addStatItem() {
       saveHistory();
+      const b = getSelectedBlock();
+      if (!b || b.type !== "stats") return;
+      
+      if (!Array.isArray(b.data.stats)) b.data.stats = [];
+      b.data.stats.push({ value: "100+", label: "Nova Métrica" });
+      
+      saveProject();
+      renderSlide();
+      renderPropertiesPanel();
+      showToast("✅ Estatística adicionada");
+    }
+
+    function removeStatItem(idx) {
+      saveHistory();
+      const b = getSelectedBlock();
+      if (!b || b.type !== "stats") return;
+      
+      if (Array.isArray(b.data.stats)) {
+        b.data.stats.splice(idx, 1);
+      }
+      
+      saveProject();
+      renderSlide();
+      renderPropertiesPanel();
+      showToast("🗑️ Estatística removida");
+    }
+
+    function moveStatItem(idx, direction) {
+      saveHistory();
+      const b = getSelectedBlock();
+      if (!b || b.type !== "stats" || !Array.isArray(b.data.stats)) return;
+      
+      const newIdx = idx + direction;
+      if (newIdx < 0 || newIdx >= b.data.stats.length) return;
+      
+      const temp = b.data.stats[idx];
+      b.data.stats[idx] = b.data.stats[newIdx];
+      b.data.stats[newIdx] = temp;
+      
+      saveProject();
+      renderSlide();
+      renderPropertiesPanel();
+      showToast(direction < 0 ? "↑ Estatística movida para cima" : "↓ Estatística movida para baixo");
+    }
+
+    function updateStatItemField(idx, field, value) {
+      const b = getSelectedBlock();
+      if (!b || b.type !== "stats" || !Array.isArray(b.data.stats)) return;
+      if (idx < 0 || idx >= b.data.stats.length) return;
+      
+      b.data.stats[idx][field] = value;
+      saveProject();
+      renderSlide();
+    }
+
+    // =========================
+    // TABLE MANAGER FUNCTIONS
+    // =========================
+    function addTableHeader() {
+      saveHistory();
+      const b = getSelectedBlock();
+      if (!b || b.type !== "table") return;
+      
+      if (!Array.isArray(b.data.headers)) b.data.headers = [];
+      b.data.headers.push("Nova Coluna");
+      
+      // Adicionar célula vazia em todas as linhas existentes
+      if (Array.isArray(b.data.rows)) {
+        b.data.rows.forEach(row => {
+          if (Array.isArray(row)) {
+            row.push("");
+          }
+        });
+      }
+      
+      saveProject();
+      renderSlide();
+      renderPropertiesPanel();
+      showToast("✅ Coluna adicionada");
+    }
+
+    function removeTableHeader(idx) {
+      saveHistory();
+      const b = getSelectedBlock();
+      if (!b || b.type !== "table") return;
+      
+      if (Array.isArray(b.data.headers)) {
+        b.data.headers.splice(idx, 1);
+      }
+      
+      // Remover célula correspondente de todas as linhas
+      if (Array.isArray(b.data.rows)) {
+        b.data.rows.forEach(row => {
+          if (Array.isArray(row) && row.length > idx) {
+            row.splice(idx, 1);
+          }
+        });
+      }
+      
+      saveProject();
+      renderSlide();
+      renderPropertiesPanel();
+      showToast("🗑️ Coluna removida");
+    }
+
+    function updateTableHeader(idx, value) {
+      const b = getSelectedBlock();
+      if (!b || b.type !== "table" || !Array.isArray(b.data.headers)) return;
+      if (idx < 0 || idx >= b.data.headers.length) return;
+      
+      b.data.headers[idx] = value;
+      saveProject();
+      renderSlide();
+      renderPropertiesPanel();
+    }
+
+    function addTableRow() {
+      saveHistory();
+      const b = getSelectedBlock();
+      if (!b || b.type !== "table") return;
+      
+      if (!Array.isArray(b.data.rows)) b.data.rows = [];
+      const numColumns = Array.isArray(b.data.headers) ? b.data.headers.length : 3;
+      const newRow = Array(numColumns).fill("");
+      b.data.rows.push(newRow);
+      
+      saveProject();
+      renderSlide();
+      renderPropertiesPanel();
+      showToast("✅ Linha adicionada");
+    }
+
+    function removeTableRow(idx) {
+      saveHistory();
+      const b = getSelectedBlock();
+      if (!b || b.type !== "table") return;
+      
+      if (Array.isArray(b.data.rows)) {
+        b.data.rows.splice(idx, 1);
+      }
+      
+      saveProject();
+      renderSlide();
+      renderPropertiesPanel();
+      showToast("🗑️ Linha removida");
+    }
+
+    function moveTableRow(idx, direction) {
+      saveHistory();
+      const b = getSelectedBlock();
+      if (!b || b.type !== "table" || !Array.isArray(b.data.rows)) return;
+      
+      const newIdx = idx + direction;
+      if (newIdx < 0 || newIdx >= b.data.rows.length) return;
+      
+      const temp = b.data.rows[idx];
+      b.data.rows[idx] = b.data.rows[newIdx];
+      b.data.rows[newIdx] = temp;
+      
+      saveProject();
+      renderSlide();
+      renderPropertiesPanel();
+      showToast(direction < 0 ? "↑ Linha movida para cima" : "↓ Linha movida para baixo");
+    }
+
+    function updateTableCell(rowIdx, cellIdx, value) {
+      const b = getSelectedBlock();
+      if (!b || b.type !== "table" || !Array.isArray(b.data.rows)) return;
+      if (rowIdx < 0 || rowIdx >= b.data.rows.length) return;
+      
+      const row = b.data.rows[rowIdx];
+      if (!Array.isArray(row)) return;
+      
+      // Garantir que a linha tem células suficientes
+      while (row.length <= cellIdx) {
+        row.push("");
+      }
+      
+      row[cellIdx] = value;
+      saveProject();
+      renderSlide();
+    }
+
+    // =========================
+    // TIMELINE MANAGER FUNCTIONS
+    // =========================
+    function addTimelineItem() {
+      saveHistory();
+      const b = getSelectedBlock();
+      if (!b || b.type !== "timeline") return;
+      
+      if (!Array.isArray(b.data.items)) b.data.items = [];
+      b.data.items.push({ title: "Nova Fase", text: "Descrição da fase" });
+      
+      saveProject();
+      renderSlide();
+      renderPropertiesPanel();
+      showToast("✅ Fase adicionada");
+    }
+
+    function removeTimelineItem(idx) {
+      saveHistory();
+      const b = getSelectedBlock();
+      if (!b || b.type !== "timeline") return;
+      
+      if (Array.isArray(b.data.items)) {
+        b.data.items.splice(idx, 1);
+      }
+      
+      saveProject();
+      renderSlide();
+      renderPropertiesPanel();
+      showToast("🗑️ Fase removida");
+    }
+
+    function moveTimelineItem(idx, direction) {
+      saveHistory();
+      const b = getSelectedBlock();
+      if (!b || b.type !== "timeline" || !Array.isArray(b.data.items)) return;
+      
+      const newIdx = idx + direction;
+      if (newIdx < 0 || newIdx >= b.data.items.length) return;
+      
+      const temp = b.data.items[idx];
+      b.data.items[idx] = b.data.items[newIdx];
+      b.data.items[newIdx] = temp;
+      
+      saveProject();
+      renderSlide();
+      renderPropertiesPanel();
+      showToast(direction < 0 ? "↑ Fase movida para cima" : "↓ Fase movida para baixo");
+    }
+
+    function updateTimelineItemField(idx, field, value) {
+      const b = getSelectedBlock();
+      if (!b || b.type !== "timeline" || !Array.isArray(b.data.items)) return;
+      if (idx < 0 || idx >= b.data.items.length) return;
+      
+      b.data.items[idx][field] = value;
+      saveProject();
+      renderSlide();
+    }
+
+    function updateSelectedData(field, value) {
       const b = getSelectedBlock();
       if (!b) return;
       b.data[field] = value;
@@ -1695,7 +2248,6 @@
     }
 
     function updateSelectedNested(side, field, value) {
-      saveHistory();
       const b = getSelectedBlock();
       if (!b) return;
       if (!b.data[side]) b.data[side] = {};
@@ -1705,73 +2257,12 @@
     }
 
     function updateListItemsFromTextarea(text) {
-      saveHistory();
       const b = getSelectedBlock();
       if (!b) return;
       const lines = text.split("\n").map(s => s.trim()).filter(Boolean);
       b.data.items = lines;
       saveProject();
       renderSlide();
-    }
-
-    function updateTimelineItems(text) {
-      try {
-        const parsed = JSON.parse(text);
-        if (Array.isArray(parsed)) {
-          saveHistory();
-          const b = getSelectedBlock();
-          if (!b) return;
-          b.data.items = parsed;
-          saveProject();
-          renderSlide();
-        }
-      } catch (e) {
-        // ignore invalid JSON while typing
-      }
-    }
-
-    function updateStatsData(text) {
-      try {
-        const parsed = JSON.parse(text);
-        if (Array.isArray(parsed)) {
-          saveHistory();
-          const b = getSelectedBlock();
-          if (!b) return;
-          b.data.stats = parsed;
-          saveProject();
-          renderSlide();
-        }
-      } catch (e) {
-        // ignore
-      }
-    }
-
-    function updateTableHeaders(text) {
-      try {
-        const parsed = JSON.parse(text);
-        if (Array.isArray(parsed)) {
-          saveHistory();
-          const b = getSelectedBlock();
-          if (!b) return;
-          b.data.headers = parsed;
-          saveProject();
-          renderSlide();
-        }
-      } catch (e) {}
-    }
-
-    function updateTableRows(text) {
-      try {
-        const parsed = JSON.parse(text);
-        if (Array.isArray(parsed)) {
-          saveHistory();
-          const b = getSelectedBlock();
-          if (!b) return;
-          b.data.rows = parsed;
-          saveProject();
-          renderSlide();
-        }
-      } catch (e) {}
     }
 
     function labelForType(type) {
@@ -1783,7 +2274,6 @@
         timeline: "Timeline",
         stats: "Stats",
         imagetext: "Imagem + Texto",
-        image: "Imagem",
         cta: "CTA",
         table: "Tabela"
       };
@@ -1796,7 +2286,6 @@
     function renderImageUploadField(currentImage, fieldName) {
       const uploadId = 'upload-' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
       
-      // Store handlers in global scope for this upload
       window['handler_' + uploadId] = {
         click: () => document.getElementById(uploadId).click(),
         change: (e) => handleImageUpload(e.target, fieldName),
@@ -1858,19 +2347,50 @@
         return;
       }
 
-      showToast("⏳ Comprimindo imagem...");
+      showToast("⏳ Processando imagem...");
 
-      compressImage(file, (compressedBase64) => {
-        saveHistory();
-        const b = getSelectedBlock();
-        if (!b) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          let width = img.width;
+          let height = img.height;
+          
+          const maxSize = 800;
+          if (width > height) {
+            if (width > maxSize) {
+              height = (height * maxSize) / width;
+              width = maxSize;
+            }
+          } else {
+            if (height > maxSize) {
+              width = (width * maxSize) / height;
+              height = maxSize;
+            }
+          }
+          
+          canvas.width = width;
+          canvas.height = height;
+          
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          
+          const compressedBase64 = canvas.toDataURL('image/jpeg', 0.8);
+          
+          saveHistory();
+          const b = getSelectedBlock();
+          if (!b) return;
 
-        b.data[fieldName] = compressedBase64;
-        saveProject();
-        renderSlide();
-        renderPropertiesPanel();
-        showToast("✅ Imagem adicionada!");
-      });
+          b.data[fieldName] = compressedBase64;
+          saveProject();
+          renderSlide();
+          renderPropertiesPanel();
+          showToast("✅ Imagem adicionada!");
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
     }
 
     function removeImage(fieldName) {
@@ -2153,15 +2673,23 @@
         fontSize: 16, color: theme.muted, valign: "top"
       });
       
-      slide.addShape("rect", {
-        x: 0.8, y: 1.8, w: 5.5, h: 3.9,
-        fill: "E5E7EB", round: 0.15
-      });
-      
-      slide.addText("🖼️", {
-        x: 0.8, y: 1.8, w: 5.5, h: 3.9,
-        fontSize: 80, align: "center", valign: "middle"
-      });
+      if (data.image) {
+        slide.addImage({
+          data: data.image,
+          x: 0.8, y: 1.8, w: 5.5, h: 3.9,
+          sizing: { type: 'cover' }
+        });
+      } else {
+        slide.addShape("rect", {
+          x: 0.8, y: 1.8, w: 5.5, h: 3.9,
+          fill: "E5E7EB", round: 0.15
+        });
+        
+        slide.addText("🖼️", {
+          x: 0.8, y: 1.8, w: 5.5, h: 3.9,
+          fontSize: 80, align: "center", valign: "middle"
+        });
+      }
     }
 
     function renderCTASlide(slide, data, theme) {
